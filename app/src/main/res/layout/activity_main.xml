@@ -4,7 +4,6 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#424242"
     tools:context="com.example.kolot.hackathon.MainActivity">
 
     <TextView
@@ -13,15 +12,16 @@
         android:layout_height="wrap_content"
         android:layout_marginEnd="24dp"
         android:layout_marginStart="50dp"
-        android:layout_marginTop="164dp"
+        android:layout_marginTop="140dp"
         android:text="@string/share"
-        android:textColor="#fff"
         android:textSize="18sp"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        android:layout_marginRight="24dp"
+        android:layout_marginLeft="50dp" />
 
     <CheckBox
         android:id="@+id/checkBox3"
@@ -31,25 +31,40 @@
 
         android:layout_marginTop="24dp"
         android:text="@string/instagram"
-        android:textColor="#fff"
         android:textSize="18sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="@+id/checkBox"
-        app:layout_constraintTop_toBottomOf="@+id/checkBox" />
+        app:layout_constraintTop_toBottomOf="@+id/checkBox"
+        android:layout_marginRight="24dp" />
 
     <CheckBox
-        android:id="@+id/checkBox2"
+        android:id="@+id/checkBox5"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="24dp"
+
+        android:layout_marginTop="24dp"
+        android:text="@string/number"
+        android:textSize="18sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="@+id/checkBox4"
+        app:layout_constraintTop_toBottomOf="@+id/checkBox4"
+        android:layout_marginRight="24dp"
+        tools:ignore="NotSibling" />
+
+    <CheckBox
+        android:id="@+id/checkBox4"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginEnd="24dp"
 
         android:layout_marginTop="24dp"
         android:text="@string/facebook"
-        android:textColor="#fff"
         android:textSize="18sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="@+id/checkBox3"
-        app:layout_constraintTop_toBottomOf="@+id/checkBox3" />
+        app:layout_constraintTop_toBottomOf="@+id/checkBox3"
+        android:layout_marginRight="24dp" />
 
     <EditText
         android:id="@+id/editText"
@@ -87,10 +102,11 @@
         android:layout_marginTop="16dp"
         android:text="@string/vk"
 
-        android:textColor="#fff"
         android:textSize="18sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="@+id/textView"
-        app:layout_constraintTop_toBottomOf="@+id/textView" />
+        app:layout_constraintTop_toBottomOf="@+id/textView"
+        android:layout_marginRight="24dp"
+        android:layout_marginLeft="16dp" />
 
 </android.support.constraint.ConstraintLayout>
