@@ -24,7 +24,6 @@ public class MainActivity extends AppCompatActivity {
     private Button button;
     private EditText editText;
     private Api apiVk;
-    private int user_id;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
