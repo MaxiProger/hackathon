@@ -6,7 +6,7 @@ import com.vk.sdk.VKSdk;
  * Created by kolot on 25.11.2017.
  */
 
-public class Applcation extends android.app.Application {
+public class Application extends android.app.Application {
     @Override
     public void onCreate() {
         super.onCreate();
