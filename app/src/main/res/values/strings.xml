@@ -7,5 +7,8 @@
     <string name="facebook">Facebook</string>
     <string name="share">Поделиться:</string>
     <string name="number">Номер телефона</string>
+    <string name="save_my_number">Save my number</string>
+    <string name="read">Read</string>
+    <string name="meetall">MeetAll Request</string>
     <integer name="com_vk_sdk_AppId">6272452</integer>
 </resources>

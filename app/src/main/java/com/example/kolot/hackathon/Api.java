@@ -1,6 +1,9 @@
 package com.example.kolot.hackathon;
 
+import java.util.List;
+
 import retrofit2.Call;
+import retrofit2.http.GET;
 import retrofit2.http.POST;
 import retrofit2.http.Query;
 
@@ -8,10 +11,18 @@ import retrofit2.http.Query;
  * Created by kolot on 25.11.2017.
  */
 
+
+// строка запроса для access token https://oauth.vk.com/authorize?client_id=6272452&display=page&scope=3&response_type=token&v=5.69
+
 public interface Api {
 
-    @POST("method/friends.add?access_token=64bcb45c0601f80d859f874dde08b312f1449e23d5ee70743487d81e9585b6ee99ad606673f68ad1799c9")
+    @POST("method/friends.add?v=5.96")
     Call<ResponseApi> getResponse(
-            @Query("user_id") int user_id
+            @Query("user_id") int user_id,
+            @Query("access_token") String access_token
     );
+
+    @GET("api/notes/")
+    Call <List<MeetAll>> getInfo();
+
 }
