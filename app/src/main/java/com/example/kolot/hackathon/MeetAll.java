@@ -5,50 +5,64 @@ package com.example.kolot.hackathon;
  */
 
 public class MeetAll {
-    private int id;
-    private String title;
-    private String content;
-    private String createdAt;
 
-    public int getId() {
+    private Long id;
+
+    private String username;
+
+    private String randomkey;
+
+    private String vkid;
+
+    private String facebookid;
+
+    private String instlogin;
+
+    public Long getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
-    public String getTitle() {
-        return title;
+    public String getUsername() {
+        return username;
     }
 
-    public void setTitle(String title) {
-        this.title = title;
+    public void setUsername(String username) {
+        this.username = username;
     }
 
-    public String getContent() {
-        return content;
+    public String getRandomkey() {
+        return randomkey;
     }
 
-    public void setContent(String content) {
-        this.content = content;
+    public void setRandomkey(String randomkey) {
+        this.randomkey = randomkey;
     }
 
-    public String getCreatedAt() {
-        return createdAt;
+    public String getVkid() {
+        return vkid;
     }
 
-    public void setCreatedAt(String createdAt) {
-        this.createdAt = createdAt;
+    public void setVkid(String vkid) {
+        this.vkid = vkid;
     }
 
-    public String getUpdatedAt() {
-        return updatedAt;
+    public String getFacebookid() {
+        return facebookid;
     }
 
-    public void setUpdatedAt(String updatetAt) {
-        this.updatedAt = updatedAt;
+    public void setFacebookid(String facebookid) {
+        this.facebookid = facebookid;
     }
 
-    private String updatedAt;
+    public String getInstlogin() {
+        return instlogin;
+    }
+
+    public void setInstlogin(String instlogin) {
+        this.instlogin = instlogin;
+    }
 }

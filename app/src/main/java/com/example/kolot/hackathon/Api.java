@@ -3,6 +3,7 @@ package com.example.kolot.hackathon;
 import java.util.List;
 
 import retrofit2.Call;
+import retrofit2.http.Body;
 import retrofit2.http.GET;
 import retrofit2.http.POST;
 import retrofit2.http.Query;
@@ -23,6 +24,15 @@ public interface Api {
     );
 
     @GET("api/notes/")
-    Call <List<MeetAll>> getInfo();
+    Call<List<MeetAll>> getInfo();
+
+
+    @POST("api/notes/")
+    Call<Null> registerUser( @Body RegistrationBody body);
+
+    @GET("api/notes/")
+    Call<List<MeetallId>> getIds (
+            @Query("") int id
+    );
 
 }

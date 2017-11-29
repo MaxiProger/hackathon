@@ -33,53 +33,46 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 public class MainActivity extends AppCompatActivity {
 
-    private Button button, button2;
+    private Button button, post, get;
     private EditText editText;
     private TextView vkId;
-    private Api apiVk, apiMeetAll;
+    private Api apiVk, apiMeetAllid;
     private CheckBox checkBox;
-    private DBHelper dbHelper;
     private String access_token, myIdVK;
-
+    private RegistrationBody body;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        dbHelper = new DBHelper(this);
 
-        button = (Button) findViewById(R.id.button);
-        button2 = (Button) findViewById(R.id.button2);
+        button = (Button) findViewById(R.id.buttonAdd);
+        post = (Button) findViewById(R.id.buttonMeetAllPOST);
+        get = (Button) findViewById(R.id.buttonMeetAllGET);
         editText = (EditText) findViewById(R.id.editText);
         checkBox = (CheckBox) findViewById(R.id.checkBox5);
         vkId = (TextView) findViewById(R.id.vkId);
 
-
         if (ContextCompat.checkSelfPermission(this,
                 Manifest.permission.INTERNET)
                 != PackageManager.PERMISSION_GRANTED) {
-
         } else {
             ActivityCompat.requestPermissions(this,
                     new String[]{Manifest.permission.INTERNET}, 1);
 
         }
 
-
         VKSdk.login(MainActivity.this, "friends");
 
-        Retrofit.Builder builder = new Retrofit.Builder()
-                .baseUrl("https://api.vk.com/")
-                .addConverterFactory(GsonConverterFactory.create());
+        initializeRetrofit();
+        setButtonsListeners();
 
-        Retrofit retrofit = builder.build();
-        apiVk = retrofit.create(Api.class);
-
-        Retrofit retrofit1 = new Retrofit.Builder()
-                .baseUrl("https://meetall.herokuapp.com/")
-                .addConverterFactory(GsonConverterFactory.create())
-                .build();
-        apiMeetAll = retrofit1.create(Api.class);
+        body = new RegistrationBody();
+        body.setFacebookid("facebook");
+        body.setInstlogin("instik");
+        body.setRandomkey("963");
+        body.setUsername("Masik");
+        body.setVkid("0000");
 
         checkBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
@@ -102,7 +95,6 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onError(VKError error) {
                 Toast.makeText(MainActivity.this, "Приложению необходимо разрешение, запустите приложение еще раз.", Toast.LENGTH_LONG).show();
-
             }
         })) {
             super.onActivityResult(requestCode, resultCode, data);
@@ -117,36 +109,27 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-
         switch (item.getItemId()) {
             case R.id.setNumber:
-                Intent intent = new Intent(MainActivity.this, SetNumberActivity.class);
-                startActivity(intent);
+                //  Intent intent = new Intent(MainActivity.this, SetNumberActivity.class);
+                //  startActivity(intent);
                 break;
         }
-
         return super.onOptionsItemSelected(item);
     }
 
 
-    @Override
-    protected void onStart() {
-        super.onStart();
-
-
-
+    private void setButtonsListeners() {
         if (VKSdk.wakeUpSession(this)) {
             button.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-
                     apiVk.getResponse(Integer.valueOf(editText.getText().toString()), access_token).enqueue(new Callback<ResponseApi>() {
                         @Override
                         public void onResponse(Call<ResponseApi> call, Response<ResponseApi> response) {
                             Toast.makeText(MainActivity.this, response.body().getResponse(), Toast.LENGTH_LONG).show();
                             Log.d("access", access_token);
                         }
-
                         @Override
                         public void onFailure(Call<ResponseApi> call, Throwable t) {
                             Toast.makeText(MainActivity.this, t.getMessage(), Toast.LENGTH_LONG).show();
@@ -155,37 +138,61 @@ public class MainActivity extends AppCompatActivity {
                 }
 
             });
-
-            button2.setOnClickListener(new View.OnClickListener() {
+            post.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    apiMeetAll.getInfo().enqueue(new Callback<List<MeetAll>>() {
+                    apiMeetAllid.registerUser(body).enqueue(new Callback<Null>() {
                         @Override
-                        public void onResponse(Call<List<MeetAll>> call, Response<List<MeetAll>> response) {
-
-                            StringBuilder stringBuilder1 = new StringBuilder();
-                            stringBuilder1.append(response.body().get(0).getId());
-                            stringBuilder1.append(" ");
-                            stringBuilder1.append(response.body().get(0).getTitle());
-                            stringBuilder1.append(" ");
-                            stringBuilder1.append(response.body().get(0).getContent());
-                            stringBuilder1.append(" ");
-                            stringBuilder1.append(response.body().get(0).getCreatedAt());
-                            stringBuilder1.append(" ");
-                            stringBuilder1.append(response.body().get(0).getUpdatedAt());
-
-                            Toast.makeText(MainActivity.this, stringBuilder1.toString(), Toast.LENGTH_LONG).show();
-                            Log.d("meet", response.body().toString());
+                        public void onResponse(Call<Null> call, Response<Null> response) {
+                            if(response.isSuccessful())
+                                Log.d("id", "successful");
                         }
 
                         @Override
-                        public void onFailure(Call<List<MeetAll>> call, Throwable t) {
-                            Toast.makeText(MainActivity.this, t.getMessage(), Toast.LENGTH_LONG).show();
+                        public void onFailure(Call<Null> call, Throwable t) {
+                            Log.d("id", t.getMessage());
+                        }
+                    });
+                }
+            });
 
+            get.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    apiMeetAllid.getIds(1).enqueue(new Callback<List<MeetallId>>() {
+                        @Override
+                        public void onResponse(Call<List<MeetallId>> call, Response<List<MeetallId>> response) {
+                            Log.d("id", String.valueOf(response.body().get(0).getVkid())  + " ");
+                            Log.d("id", String.valueOf(response.body().get(0).getRandomkey())  + " ");
+                            Log.d("id", String.valueOf(response.body().get(0).getUsername()) + " ");
+                            Log.d("id", String.valueOf(response.body().get(0).getInstlogin()) + " ");
+                            Log.d("id", String.valueOf(response.body().get(0).getId()) + " ");
+                            Log.d("id", String.valueOf(response.body().get(0).getFacebookid()));
+
+
+                        }
+
+                        @Override
+                        public void onFailure(Call<List<MeetallId>> call, Throwable t) {
+                            Log.d("id", t.getMessage());
                         }
                     });
                 }
             });
         }
+    }
+
+    private void initializeRetrofit() {
+        Retrofit vkRetrofitBuilder = new Retrofit.Builder()
+                .baseUrl("https://api.vk.com/")
+                .addConverterFactory(GsonConverterFactory.create())
+                .build();
+        apiVk = vkRetrofitBuilder.create(Api.class);
+
+        Retrofit meetallRetrofitBuilder = new Retrofit.Builder()
+                .baseUrl("https://meetall.herokuapp.com/")
+                .addConverterFactory(GsonConverterFactory.create())
+                .build();
+        apiMeetAllid = meetallRetrofitBuilder.create(Api.class);
     }
 }

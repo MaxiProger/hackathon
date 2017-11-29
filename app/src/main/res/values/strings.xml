@@ -10,5 +10,7 @@
     <string name="save_my_number">Save my number</string>
     <string name="read">Read</string>
     <string name="meetall">MeetAll Request</string>
+    <string name="post">POST</string>
+    <string name="get">GET</string>
     <integer name="com_vk_sdk_AppId">6272452</integer>
 </resources>
