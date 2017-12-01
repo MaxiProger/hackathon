@@ -23,8 +23,6 @@ import com.vk.sdk.VKCallback;
 import com.vk.sdk.VKSdk;
 import com.vk.sdk.api.VKError;
 
-import java.util.List;
-
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -68,11 +66,11 @@ public class MainActivity extends AppCompatActivity {
         setButtonsListeners();
 
         body = new RegistrationBody();
-        body.setFacebookid("facebook");
-        body.setInstlogin("instik");
+        body.setFacebookid("facebookMax");
+        body.setInstlogin("instikMax");
         body.setRandomkey("963");
         body.setUsername("Masik");
-        body.setVkid("0000");
+        body.setVkid("0000Max");
 
         checkBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
@@ -159,22 +157,21 @@ public class MainActivity extends AppCompatActivity {
             get.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    apiMeetAllid.getIds(1).enqueue(new Callback<List<MeetallId>>() {
+                    apiMeetAllid.getIds(1).enqueue(new Callback<MeetallId>() {
                         @Override
-                        public void onResponse(Call<List<MeetallId>> call, Response<List<MeetallId>> response) {
-                            Log.d("id", String.valueOf(response.body().get(0).getVkid())  + " ");
-                            Log.d("id", String.valueOf(response.body().get(0).getRandomkey())  + " ");
-                            Log.d("id", String.valueOf(response.body().get(0).getUsername()) + " ");
-                            Log.d("id", String.valueOf(response.body().get(0).getInstlogin()) + " ");
-                            Log.d("id", String.valueOf(response.body().get(0).getId()) + " ");
-                            Log.d("id", String.valueOf(response.body().get(0).getFacebookid()));
-
-
+                        public void onResponse(Call<MeetallId> call, Response<MeetallId> response) {
+                            Log.d("id", String.valueOf(response.body().getVkid())  + " ");
+                            Log.d("id", String.valueOf(response.body().getRandomkey())  + " ");
+                            Log.d("id", String.valueOf(response.body().getUsername()) + " ");
+                            Log.d("id", String.valueOf(response.body().getInstlogin()) + " ");
+                            Log.d("id", String.valueOf(response.body().getId()) + " ");
+                            Log.d("id", String.valueOf(response.body().getFacebookid()));
                         }
 
                         @Override
-                        public void onFailure(Call<List<MeetallId>> call, Throwable t) {
+                        public void onFailure(Call<MeetallId> call, Throwable t) {
                             Log.d("id", t.getMessage());
+
                         }
                     });
                 }

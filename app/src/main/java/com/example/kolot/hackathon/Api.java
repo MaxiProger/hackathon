@@ -6,6 +6,7 @@ import retrofit2.Call;
 import retrofit2.http.Body;
 import retrofit2.http.GET;
 import retrofit2.http.POST;
+import retrofit2.http.Path;
 import retrofit2.http.Query;
 
 /**
@@ -30,9 +31,9 @@ public interface Api {
     @POST("api/notes/")
     Call<Null> registerUser( @Body RegistrationBody body);
 
-    @GET("api/notes/")
-    Call<List<MeetallId>> getIds (
-            @Query("") int id
+    @GET("api/notes/{id}")
+    Call<MeetallId> getIds (
+            @Path("id") int id
     );
 
 }
