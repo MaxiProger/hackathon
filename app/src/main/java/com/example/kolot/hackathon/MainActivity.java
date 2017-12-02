@@ -139,15 +139,20 @@ public class MainActivity extends AppCompatActivity {
             post.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    apiMeetAllid.registerUser(body).enqueue(new Callback<Null>() {
+                    apiMeetAllid.registerUser(body).enqueue(new Callback<MeetAll>() {
                         @Override
-                        public void onResponse(Call<Null> call, Response<Null> response) {
-                            if(response.isSuccessful())
-                                Log.d("id", "successful");
+                        public void onResponse(Call<MeetAll> call, Response<MeetAll> response) {
+                            Log.d("id", "successful");
+                            Log.d("id", String.valueOf(response.body().getVkid())  + " ");
+                            Log.d("id", String.valueOf(response.body().getRandomkey())  + " ");
+                            Log.d("id", String.valueOf(response.body().getUsername()) + " ");
+                            Log.d("id", String.valueOf(response.body().getInstlogin()) + " ");
+                            Log.d("id", String.valueOf(response.body().getId()) + " ");
+                            Log.d("id", String.valueOf(response.body().getFacebookid()));
                         }
 
                         @Override
-                        public void onFailure(Call<Null> call, Throwable t) {
+                        public void onFailure(Call<MeetAll> call, Throwable t) {
                             Log.d("id", t.getMessage());
                         }
                     });

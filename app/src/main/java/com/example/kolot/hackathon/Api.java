@@ -29,7 +29,7 @@ public interface Api {
 
 
     @POST("api/notes/")
-    Call<Null> registerUser( @Body RegistrationBody body);
+    Call<MeetAll> registerUser( @Body RegistrationBody body);
 
     @GET("api/notes/{id}")
     Call<MeetallId> getIds (
