@@ -25,11 +25,11 @@ public interface Api {
     );
 
     @GET("api/notes/")
-    Call<List<MeetAll>> getInfo();
+    Call<List<MeetallId>> getInfo();
 
 
     @POST("api/notes/")
-    Call<MeetAll> registerUser( @Body RegistrationBody body);
+    Call<MeetallId> registerUser( @Body RegistrationBody body);
 
     @GET("api/notes/{id}")
     Call<MeetallId> getIds (

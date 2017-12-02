@@ -16,6 +16,17 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content">
 
+            <EditText
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="72dp"
+                android:hint="enter contact's id"
+                android:gravity="center"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
             <TextView
                 android:id="@+id/textView"
                 android:layout_width="0dp"
@@ -32,27 +43,18 @@
                 app:layout_constraintTop_toTopOf="parent" />
 
 
-            <TextView
-                android:id="@+id/vkId"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="8dp"
-                android:layout_marginStart="8dp"
-                android:layout_marginTop="8dp"
-                android:text="ZXd"
-                app:layout_constraintStart_toStartOf="@+id/textView"
-                app:layout_constraintTop_toBottomOf="@+id/textView" />
-
             <CheckBox
                 android:id="@+id/checkBox"
                 android:layout_width="384dp"
                 android:layout_height="wrap_content"
 
-                android:layout_marginTop="24dp"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="16dp"
                 android:text="@string/vk"
                 android:textSize="18sp"
-                app:layout_constraintStart_toStartOf="@+id/vkId"
-                app:layout_constraintTop_toBottomOf="@+id/vkId" />
+                app:layout_constraintStart_toStartOf="@+id/textView"
+                app:layout_constraintTop_toBottomOf="@+id/textView"
+                android:layout_marginLeft="8dp" />
 
             <CheckBox
                 android:id="@+id/checkBox4"
@@ -88,59 +90,45 @@
                 app:layout_constraintStart_toStartOf="@+id/checkBox"
                 app:layout_constraintTop_toBottomOf="@+id/checkBox" />
 
-            <EditText
-                android:id="@+id/editText"
-                android:layout_width="0dp"
+            <TextView
+                android:id="@+id/myIniqKey"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginEnd="8dp"
-                android:layout_marginStart="8dp"
-                android:layout_marginTop="8dp"
-                android:gravity="center"
-                android:hint="@string/enter_vk_user_s_id"
+                android:layout_marginTop="16dp"
+                android:textSize="32sp"
                 app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.5"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
+
+
         </android.support.constraint.ConstraintLayout>
     </ScrollView>
 
-
-    <Button
-        android:id="@+id/buttonAdd"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="16dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginStart="8dp"
-        android:background="@color/colorPrimary"
-        android:text="@string/add"
-        android:textColor="#ffff"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
 
     <Button
         android:id="@+id/buttonMeetAllPOST"
         android:layout_width="0dp"
         android:layout_height="46dp"
         android:layout_marginBottom="8dp"
-        android:layout_marginStart="8dp"
+        android:layout_marginStart="16dp"
         android:background="@color/colorPrimary"
         android:text="@string/post"
         android:textColor="#ffff"
-        app:layout_constraintBottom_toTopOf="@+id/buttonAdd"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        android:layout_marginLeft="8dp" />
+        android:layout_marginLeft="16dp" />
 
     <Button
         android:id="@+id/buttonMeetAllGET"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginBottom="8dp"
-        android:layout_marginEnd="8dp"
+        android:layout_marginEnd="16dp"
         android:background="@color/colorPrimary"
         android:text="@string/get"
         android:textColor="#ffff"
-        app:layout_constraintBottom_toTopOf="@+id/buttonAdd"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        android:layout_marginRight="8dp" />
+        android:layout_marginRight="16dp" />
 </android.support.constraint.ConstraintLayout>
