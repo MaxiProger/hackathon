@@ -8,8 +8,6 @@ import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
@@ -31,7 +29,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 public class MainActivity extends AppCompatActivity {
 
-    private Button button, post, get;
+    private Button button, login, add_contact;
     private EditText editText;
     private TextView vkId;
     private Api apiVk, apiMeetAllid;
@@ -44,12 +42,12 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        button = (Button) findViewById(R.id.buttonAdd);
-        post = (Button) findViewById(R.id.buttonMeetAllPOST);
-        get = (Button) findViewById(R.id.buttonMeetAllGET);
-        editText = (EditText) findViewById(R.id.editText);
+
+        login = (Button) findViewById(R.id.buttonMeetAllPOST);
+        add_contact = (Button) findViewById(R.id.buttonMeetAllGET);
+        editText = (EditText) findViewById(R.id.contact_id);
         checkBox = (CheckBox) findViewById(R.id.checkBox5);
-        vkId = (TextView) findViewById(R.id.vkId);
+        vkId = (TextView) findViewById(R.id.myIniqKey);
 
         if (ContextCompat.checkSelfPermission(this,
                 Manifest.permission.INTERNET)
@@ -66,11 +64,10 @@ public class MainActivity extends AppCompatActivity {
         setButtonsListeners();
 
         body = new RegistrationBody();
-        body.setFacebookid("facebookMax");
-        body.setInstlogin("instikMax");
-        body.setRandomkey("963");
-        body.setUsername("Masik");
-        body.setVkid("0000Max");
+        body.setFacebookid("a");
+        body.setInstlogin("a");
+        body.setRandomkey("a");
+        body.setUsername("a");
 
         checkBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
@@ -86,8 +83,8 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onResult(VKAccessToken res) {
                 access_token = res.accessToken;
+                body.setVkid(res.userId);
                 myIdVK = res.userId;
-                vkId.setText("My vk id: " + myIdVK);
             }
 
             @Override
@@ -99,55 +96,26 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.mymenu, menu);
-        return super.onCreateOptionsMenu(menu);
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId()) {
-            case R.id.setNumber:
-                //  Intent intent = new Intent(MainActivity.this, SetNumberActivity.class);
-                //  startActivity(intent);
-                break;
-        }
-        return super.onOptionsItemSelected(item);
-    }
-
-
     private void setButtonsListeners() {
         if (VKSdk.wakeUpSession(this)) {
-            button.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    apiVk.getResponse(Integer.valueOf(editText.getText().toString()), access_token).enqueue(new Callback<ResponseApi>() {
-                        @Override
-                        public void onResponse(Call<ResponseApi> call, Response<ResponseApi> response) {
-                            Toast.makeText(MainActivity.this, response.body().getResponse(), Toast.LENGTH_LONG).show();
-                            Log.d("access", access_token);
-                        }
-                        @Override
-                        public void onFailure(Call<ResponseApi> call, Throwable t) {
-                            Toast.makeText(MainActivity.this, t.getMessage(), Toast.LENGTH_LONG).show();
-                        }
-                    });
-                }
-
-            });
-            post.setOnClickListener(new View.OnClickListener() {
+            login.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
                     apiMeetAllid.registerUser(body).enqueue(new Callback<MeetallId>() {
                         @Override
                         public void onResponse(Call<MeetallId> call, Response<MeetallId> response) {
-                            Log.d("id", "successful");
-                            Log.d("id", String.valueOf(response.body().getVkid())  + " ");
-                            Log.d("id", String.valueOf(response.body().getRandomkey())  + " ");
-                            Log.d("id", String.valueOf(response.body().getUsername()) + " ");
-                            Log.d("id", String.valueOf(response.body().getInstlogin()) + " ");
-                            Log.d("id", String.valueOf(response.body().getFacebookid()));
+
+                                vkId.setText(String.valueOf(response.body().getId()));
+                            Log.d("111", String.valueOf(response.body().getId()) + " ");
+
+                            Log.d("111", "successful");
+                            Log.d("111", String.valueOf(response.body().getVkid()) + " ");
+                                Log.d("111", String.valueOf(response.body().getRandomkey()) + " ");
+                                Log.d("111", String.valueOf(response.body().getUsername()) + " ");
+                                Log.d("111", String.valueOf(response.body().getInstlogin()) + " ");
+                                Log.d("111", String.valueOf(response.body().getFacebookid()));
+                                login.setVisibility(View.INVISIBLE);
+
                         }
 
                         @Override
@@ -158,18 +126,25 @@ public class MainActivity extends AppCompatActivity {
                 }
             });
 
-            get.setOnClickListener(new View.OnClickListener() {
+            add_contact.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    apiMeetAllid.getIds(1).enqueue(new Callback<MeetallId>() {
+                    if(!editText.getText().toString().isEmpty())
+                    apiMeetAllid.getIds(Integer.valueOf(editText.getText().toString())).enqueue(new Callback<MeetallId>() {
                         @Override
                         public void onResponse(Call<MeetallId> call, Response<MeetallId> response) {
-                            Log.d("id", String.valueOf(response.body().getVkid())  + " ");
-                            Log.d("id", String.valueOf(response.body().getRandomkey())  + " ");
-                            Log.d("id", String.valueOf(response.body().getUsername()) + " ");
-                            Log.d("id", String.valueOf(response.body().getInstlogin()) + " ");
-                            Log.d("id", String.valueOf(response.body().getId()) + " ");
-                            Log.d("id", String.valueOf(response.body().getFacebookid()));
+
+                           apiVk.getResponse(Integer.valueOf(response.body().getVkid()), access_token).enqueue(new Callback<ResponseApi>() {
+                               @Override
+                               public void onResponse(Call<ResponseApi> call, Response<ResponseApi> response) {
+
+                               }
+
+                               @Override
+                               public void onFailure(Call<ResponseApi> call, Throwable t) {
+
+                               }
+                           });
                         }
 
                         @Override
