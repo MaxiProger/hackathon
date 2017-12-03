@@ -1,7 +1,9 @@
 package com.example.kolot.hackathon;
 
 import android.Manifest;
+import android.app.ProgressDialog;
 import android.content.Intent;
+import android.content.pm.ActivityInfo;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.support.v4.app.ActivityCompat;
@@ -29,10 +31,11 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 public class MainActivity extends AppCompatActivity {
 
-    private Button button, login, add_contact;
+    private Button button,login, add_contact;
     private EditText editText;
     private TextView vkId;
     private Api apiVk, apiMeetAllid;
+    private ProgressDialog progressDialog;
     private CheckBox checkBox;
     private String access_token, myIdVK;
     private RegistrationBody body;
@@ -42,8 +45,9 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
 
-        login = (Button) findViewById(R.id.buttonMeetAllPOST);
+        login = (Button) findViewById(R.id.buttonMeetAllLOGIN);
         add_contact = (Button) findViewById(R.id.buttonMeetAllGET);
         editText = (EditText) findViewById(R.id.contact_id);
         checkBox = (CheckBox) findViewById(R.id.checkBox5);
@@ -69,10 +73,10 @@ public class MainActivity extends AppCompatActivity {
         body.setRandomkey("a");
         body.setUsername("a");
 
+
         checkBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
-
             }
         });
 
@@ -101,6 +105,7 @@ public class MainActivity extends AppCompatActivity {
             login.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
+                    progressDialog = ProgressDialog.show(MainActivity.this, "", "Please wait...");
                     apiMeetAllid.registerUser(body).enqueue(new Callback<MeetallId>() {
                         @Override
                         public void onResponse(Call<MeetallId> call, Response<MeetallId> response) {
@@ -114,7 +119,8 @@ public class MainActivity extends AppCompatActivity {
                                 Log.d("111", String.valueOf(response.body().getUsername()) + " ");
                                 Log.d("111", String.valueOf(response.body().getInstlogin()) + " ");
                                 Log.d("111", String.valueOf(response.body().getFacebookid()));
-                                login.setVisibility(View.INVISIBLE);
+                                login.setEnabled(false);
+                            progressDialog.dismiss();
 
                         }
 
@@ -157,6 +163,8 @@ public class MainActivity extends AppCompatActivity {
             });
         }
     }
+
+
 
     private void initializeRetrofit() {
         Retrofit vkRetrofitBuilder = new Retrofit.Builder()

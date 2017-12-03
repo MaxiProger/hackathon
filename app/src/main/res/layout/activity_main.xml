@@ -108,28 +108,28 @@
 
 
     <Button
-        android:id="@+id/buttonMeetAllPOST"
-        android:layout_width="0dp"
-        android:layout_height="46dp"
-        android:layout_marginBottom="8dp"
-        android:layout_marginStart="16dp"
-        android:background="@color/colorPrimary"
-        android:text="@string/post"
-        android:textColor="#ffff"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        android:layout_marginLeft="16dp" />
-
-    <Button
         android:id="@+id/buttonMeetAllGET"
         android:layout_width="0dp"
-        android:layout_height="wrap_content"
+        android:layout_height="52dp"
         android:layout_marginBottom="8dp"
-        android:layout_marginEnd="16dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
         android:background="@color/colorPrimary"
         android:text="@string/get"
         android:textColor="#ffff"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        android:layout_marginRight="16dp" />
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <Button
+        android:id="@+id/buttonMeetAllLOGIN"
+        android:layout_width="0dp"
+        android:layout_height="52dp"
+        android:layout_marginBottom="8dp"
+        android:background="@color/colorPrimary"
+        android:text="login"
+        android:textColor="#ffff"
+        app:layout_constraintBottom_toTopOf="@+id/buttonMeetAllGET"
+        app:layout_constraintEnd_toEndOf="@+id/buttonMeetAllGET"
+        app:layout_constraintStart_toStartOf="@+id/buttonMeetAllGET" />
 </android.support.constraint.ConstraintLayout>

@@ -36,4 +36,8 @@ public interface Api {
             @Path("id") int id
     );
 
+    @GET ("/oauth/v2/authorization?response_type=code&client_id=863v2jm0276p45&redirect_uri=http://meetall.herokuapp.com/api/notes&state=987654321&scope=r_basicprofile")
+    Call<String> getTestLinkedIn ();
+
+   // @POST("authorization_code&code=AQQKYaYDpPE2lfRKuz5Lns4Py9Z0injKexPgksENGuhb2icI-_QUljeYv3pQmJiHFdXSN1f-hm1KFYEA5hcPODN7U6X0gCIKyPV4_HRekLPecBqxlwYik4xPk3QqA7_yySRb31_nzSIcI0yOZ7ogQKKfFt6nlg&redirect_uri=http://meetall.herokuapp.com/api/notes&client_id=863v2jm0276p45&client_secret=oRqCvJnOOJ8A29iJ")
 }
